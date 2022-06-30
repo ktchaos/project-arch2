@@ -48,16 +48,16 @@ void convolution_version_1(){
     }
 }
 
-void convolution_version_optimized(){
+void convolution_optimized_version(){
     for(int linha = KERNEL_AMPLITUDE; linha < IMAGE_SIZE - KERNEL_AMPLITUDE; linha++){
         for(int coluna = KERNEL_AMPLITUDE; coluna < IMAGE_SIZE - KERNEL_AMPLITUDE; coluna++){
-            float sum = 0;
+            int sum = 0;
             for(int m = linha - KERNEL_AMPLITUDE; m <= linha + KERNEL_AMPLITUDE; m++){
                 for(int n = coluna - KERNEL_AMPLITUDE; n <= coluna + KERNEL_AMPLITUDE; n++){
-                        sum += (image[m][n] / KERNEL_SIZE*KERNEL_SIZE);    
+                        sum += image[m][n];    
                 }
             }
-            new_image[linha][coluna] = sum;
+            new_image[linha][coluna] = sum / (KERNEL_SIZE*KERNEL_SIZE);
         }
     }
 }
@@ -97,7 +97,7 @@ int main(){
 
     start = chrono::steady_clock::now();
 
-    convolution_version_optimized();
+    convolution_optimized_version();
 
     end = chrono::steady_clock::now();
 
